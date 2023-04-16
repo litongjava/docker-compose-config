@@ -5,8 +5,9 @@ apt install docker-compose
 ##### 创建配置文件
 首先，创建 /home/verdaccio 目录，以下在该目录下操作。
 其次，创建 conf 目录，并添加 verdaccio 的 config.yaml 配置文件。
+
 ```
-mkdir /home/verdaccio/conf -p
+mkdir -p ~/verdaccio/conf
 # 启动docker镜像,名称verdaccio， 端口 4873
 # 拷贝出 verdaccio 镜像的配置文件。
 # docker cp：在容器和本地文件系统之间，拷贝文件或文件夹。
@@ -16,15 +17,15 @@ docker run -it --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
 
 ```
-docker cp verdaccio:/verdaccio/conf/config.yaml /home/verdaccio/conf
+docker cp verdaccio:/verdaccio/conf/config.yaml ~/verdaccio/conf
 docker rm -f verdaccio
 ```
 
 ##### 使用docker-compose启动
 接着处理映射目录，
 ```
-mkdir /data/docker/verdaccio/conf -p
-cd /data/docker/verdaccio
+mkdir -p ~/code/docker-compose-config/verdaccio/conf
+cd ~/code/docker-compose-config/verdaccio/conf
 ````
 添加 docker-compose.yml 文件，使用 docker-compose up 命令启动
 ```
@@ -40,9 +41,9 @@ services:
     ports:
       - "4873:4873"
     volumes:
-      - "/home/verdaccio/storage:/verdaccio/storage"
-      - "/home/verdaccio/conf:/verdaccio/conf"
-      - "/home/verdaccio/plugins:/verdaccio/plugins"
+      - "~/verdaccio/storage:/verdaccio/storage"
+      - "~/verdaccio/conf:/verdaccio/conf"
+      - "~/verdaccio/plugins:/verdaccio/plugins"
     network_mode: "bridge"
 ```
 前台启动
